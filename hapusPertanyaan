@@ -1,0 +1,41 @@
+<?php
+
+ session_start();
+		$namaAdmin=$_SESSION['username'];
+        if($_SESSION['status']!="login"){
+            header("location:./index.php");
+        }
+		include 'koneksi.php';
+	
+    // Tampilkan semua data
+    $ambil = queryData();
+	
+	
+
+//jika berhasil/ada post['id'], jika tidak ada ya tidak dijalankan
+if($_POST['id']){
+	//membuat variabel id berisi post['id']
+	$id = $_POST['id'];
+	//query standart select where id
+	$view = getIdPakan($id);
+	//jika ada datanya
+	if($view->num_rows){
+		//fetch data ke dalam veriabel $row_view
+		$row_view = $view->fetch_assoc();
+		//menampilkan data dengan table
+		echo '
+		<div class="col-12 col-lg-12">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Hapus Data</h5>
+								</div>
+								<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+								<h5 class="w-100 text-center">Yakin untuk menghapus data <br><em>'.$row_view['namaPertanyaan'].'?</em></h5>
+								<input type="text" class="form-control mb-3 invisible" placeholder="Nama Pertanyaan" name="idPertanyaan" value="'.$row_view['idPertanyaan'].'">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-danger" name="hapus">Hapus</button>
+							</div>
+						</div>';
+	}
+}
+?>

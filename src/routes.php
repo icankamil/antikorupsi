@@ -18,6 +18,7 @@ $routes->push('kuisioner_publik', '/', [KuisionerPublikController::class, 'index
 $routes->push('kuisioner_publik_send', '/kuisioner-public-send', [KuisionerPublikController::class, 'send']);
 
 // admin
+$routes->push('admin', '/admin', [AkumulasiController::class, 'index']);
 $routes->prefix('admin', function ($routes) {
 
     // akumulasi
@@ -45,8 +46,8 @@ $routes->prefix('admin', function ($routes) {
 });
 
 // handle auth portal request
-$routes->push('authPortal', '/auth/check', [AuthPortalController::class, 'auth']);
-$routes->push('authPortalLogout', '/logout', [AuthPortalController::class, 'logout']);
+// $routes->push('authPortal', '/auth/check', [AuthPortalController::class, 'auth']);
+// $routes->push('authPortalLogout', '/logout', [AuthPortalController::class, 'logout']);
 
 
 return $routes;

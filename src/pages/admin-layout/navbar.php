@@ -7,7 +7,9 @@
 
     use Core\Classes\SessionData;
 
-    if ($GLOBALS['url'] == '/admin/akumulasi' || $GLOBALS['url'] == '/admin/detail-akumulasi') { ?>
+    ?>
+
+    <?php if ($GLOBALS['url'] == '/admin/akumulasi' || $GLOBALS['url'] == '/admin/detail-akumulasi') { ?>
         <form class="d-none d-sm-inline-block" method="GET" action="">
             <div class="input-group input-group-navbar">
                 <input type="text" class="form-control datepicker" placeholder="Dari Tanggal" aria-label="Search" name="tgl_mulai" autocomplete="off" value="<?= isset($tgl_mulai) ? date('Y-m-d', strtotime($tgl_mulai)) : '' ?>">
@@ -26,12 +28,12 @@
                     <i class="align-middle" data-feather="settings"></i>
                 </a>
 
-                <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                <!-- <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                     <img src="/assets/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> <span class="text-dark"><?= SessionData::get('namaUser') ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="/logout">Log out</a>
-                </div>
+                </div> -->
             </li>
         </ul>
     </div>

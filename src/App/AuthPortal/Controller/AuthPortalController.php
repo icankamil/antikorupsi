@@ -14,24 +14,28 @@ class AuthPortalController
     public function auth(Request $request)
     {
         if ($request->query->get('token') != null) {
-            $token_payload = JWT::decode($request->query->get('payload'), new Key($_ENV['JWT_SECRET'], 'HS256'));
+            $token_payload = unserialize(base64_decode($request->query->get('payload')));
+            // $token_payload = JWT::decode($request->query->get('payload'), new Key($_ENV['JWT_SECRET'], 'HS256'));
 
-            if (empty($token_payload->roles)) {
+            if ($token_payload['user']['user_type'] != 'admin' && empty($token_payload['roles'])) {
                 return new RedirectResponse($_ENV['PORTAL_URL']);
             }
 
             $session = [
-                'idUser' => $token_payload->user->id,
-                'namaUser' => $token_payload->user->name,
-                'email' => $token_payload->user->email,
-                'role' => $token_payload->roles
+                'id_admin' => $token_payload['user']['id'],
+                'namaUser' => $token_payload['user']['name'],
+                'email' => $token_payload['user']['email'],
+                'username' => $token_payload['user']['email'],
+                'role' => $token_payload['roles'],
+                'role_admin' => $token_payload['user']['roles'][0]['name'],
+                'token' => $request->query->get('token')
             ];
 
             foreach ($session as $key => $value) {
                 $request->getSession()->set($key, $value);
             }
 
-            return new RedirectResponse('/');
+            return new RedirectResponse('/admin');
         }
 
         return new RedirectResponse($_ENV['APP_PORTAL_URL']);

@@ -40,11 +40,23 @@ class Framework extends HttpKernel implements HttpKernelInterface
 
         // !!!! Overriding Core Framework !!!!
 
-        if (strpos($pathInfo, '/admin') !== false) {
-            if (empty($request->getSession()->all()) && !($pathInfo == '/auth/check' && $request->query->get('token') != null)) {
-                return new RedirectResponse($_ENV['PORTAL_URL']);
-            }
-        }
+        // $base_url = ($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' ? 'http' : 'https') . '://' . $_SERVER['HTTP_HOST'];
+
+        // if (strpos($pathInfo, '/admin') !== false) {
+        //     if (empty($request->getSession()->all()) && !($pathInfo == '/auth/check' && $request->query->get('token') != null)) {
+        //         return new RedirectResponse($_ENV['PORTAL_URL'].'/app/find?url='.$base_url);
+        //     }
+
+        //     if (!empty($request->getSession()->all())) {
+        //         $token = $request->getSession()->get('token');
+        //         $request->getSession()->set('token', $token);
+        //         $auth = callAPI('GET', $_ENV['PORTAL_URL'] . '/api/auth/profile', [], 'Authorization: Bearer ' . $token);
+        //         if ($auth == null) {
+        //             $request->getSession()->invalidate();
+        //             return new RedirectResponse($_ENV['PORTAL_URL'].'/app/find?url='.$base_url);
+        //         }
+        //     }
+        // }
 
         // -----------------------------------
 
